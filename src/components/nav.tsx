@@ -11,7 +11,7 @@ export default function Nav() {
     const pathname:string = usePathname()
 
     return (
-        <ul className={`flex gap-12 ${lexend_deca.variable} font-lexend my-20 [&>li]:py-1`}>
+        <ul className={`flex gap-12 ${lexend_deca.variable} font-lexend font-bold my-20 [&>li]:py-1`}>
             <li className={pathname == '/' ? 'border-b-2 border-white' : ''}>
                 <Link href='/'>Home</Link>
             </li>

@@ -2,6 +2,7 @@ import Nav from '@/components/nav'
 import './globals.css'
 import { Inter } from 'next/font/google'
 import Hero from '@/components/hero'
+import Footer from '@/components/footer'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -17,11 +18,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
+      <body className='min-h-screen flex flex-col'>
         <Hero >
           <Nav />
         </Hero>
-        {children}</body>
+        {children}
+        <Footer/>
+      </body>
     </html>
   )
 }

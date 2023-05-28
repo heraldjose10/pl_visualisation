@@ -9,7 +9,7 @@ export const passion_one = Passion_One({
 });
 
 export const lexend_deca = Lexend_Deca({
-    weight: "700",
+    weight: ["400", "700"],
     subsets: ['latin'],
     variable: '--font-lexend-deca'
 })
