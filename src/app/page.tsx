@@ -9,8 +9,11 @@ async function fetchData() {
 		const teams = await db
 			.collection("teams")
 			.find({})
+			.project({"name":1, "_id":0})
 			.toArray();
 
+			console.log(teams);
+			
 		return ('connected!!')
 
 	} catch (e) {
