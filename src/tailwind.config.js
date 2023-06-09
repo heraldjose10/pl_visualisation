@@ -7,15 +7,16 @@ module.exports = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+      colors: {
+        'headings': {
+          500: '#0f412b',
+        },
       },
     },
     fontFamily: {
       passion: ['var(--font-passion-one)'],
-      lexend: ['var(--font-lexend-deca)']
+      lexend: ['var(--font-lexend-deca)'],
+      overpass: ['var(--font-overpass)']
     }
   },
   plugins: [],
