@@ -1,33 +1,40 @@
-import TextBlock from '@/components/text-block';
+import type { Document } from 'mongodb';
 import { connectToDatabase } from '../lib/mongodb'
+import { Team } from '@/types';
 
-// check the connection
+import TextBlock from '@/components/text-block';
+import StackedBarChart from '@/components/stacked-bar-chart';
+
+
 async function fetchData() {
 	try {
 		const client = await connectToDatabase();
 		const db = client.db("premier_league_2023");
 
-		const teams = await db
+		// get goals data
+		const teamDocs: Document[] = await db
 			.collection("teams")
-			.find({})
-			.project({"name":1, "_id":0})
-			.toArray();
+			.find({ "name": { "$in": ["Man City", "Man United", "Arsenal", "Liverpool", "Chelsea", "Tottenham"] } })
+			.project({ "name": 1, "home_goals": 1, "away_goals": 1, "_id": 0 })
+			.toArray()
 
-			console.log(teams);
-			
-		return ('connected!!')
+		const teams: Team[] = teamDocs.map((document: Document) => ({
+			name: document.name,
+			home_goals: document.home_goals,
+			away_goals: document.away_goals
+		}))
+
+		return (teams)
 
 	} catch (e) {
 		console.error(e)
-		return ('not connected')
+		return (String(e))
 	}
 }
 
 export default async function Home() {
 
 	const data = await fetchData()
-
-	console.log(data);
 
 	return (
 		<main className='bg-white py-[200px] flex flex-col gap-16'>
@@ -39,6 +46,8 @@ export default async function Home() {
 						'Vestibulum aliquam aliquet arcu. Donec accumsan erat eu arcu semper aliquet. Vivamus a tellus quis nisi convallis fermentum. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Mauris condimentum convallis leo quis gravida. Vivamus eu nunc ex. Quisque nec neque eros. Cras dapibus ultrices nulla et elementum.'
 					]
 				}
+				// TODO: fix the layout change issue on render
+				graph={typeof data !== "string" ? <StackedBarChart data={data as Team[]} /> : ''}
 			/>
 			<TextBlock
 				heading='Heading 2'
