@@ -14,7 +14,7 @@ export default function TextBlock({ heading, texts }: TextBlockProps) {
             </h1>
             {
                 texts.map(text => (
-                    <p className="text-black">
+                    <p className="text-black mb-4">
                         {text}
                     </p>
                 ))
