@@ -1,12 +1,15 @@
 import type { Document } from 'mongodb';
 import { connectToDatabase } from '../lib/mongodb'
-import { Team } from '@/types';
+
+import { GoalDifferenceData, Team } from '@/types';
+import { teamColors } from '@/utils/team_colors';
 
 import TextBlock from '@/components/text-block';
 import StackedBarChart from '@/components/stacked-bar-chart';
+import LineGraph from '@/components/line-graph';
 
 
-async function fetchData() {
+async function getGoals() {
 	try {
 		const client = await connectToDatabase();
 		const db = client.db("premier_league_2023");
@@ -14,7 +17,7 @@ async function fetchData() {
 		// get goals data
 		const teamDocs: Document[] = await db
 			.collection("teams")
-			.find({ "name": { "$in": ["Man City", "Man United", "Arsenal", "Liverpool", "Chelsea", "Tottenham"] } })
+			.find({ "name": { "$in": Object.keys(teamColors) } })
 			.project({ "name": 1, "home_goals": 1, "away_goals": 1, "_id": 0 })
 			.toArray()
 
@@ -32,9 +35,41 @@ async function fetchData() {
 	}
 }
 
+
+async function getGoalDiffernce() {
+	try {
+		const client = await connectToDatabase();
+		const db = client.db("premier_league_2023")
+
+		// get goal difference data of pl big six
+		const goalDiffDocs: Document[] = await db
+			.collection("teams")
+			.find({ "name": { "$in": Object.keys(teamColors) } })
+			.project({ "name": 1, "goal_diff": 1, "_id": 0 })
+			.toArray()
+
+		const goalDiff: GoalDifferenceData[] = goalDiffDocs.map((document: Document) => {
+			return ({
+				name: document.name,
+				data: document.goal_diff.map((gd: number, index: number) => ({
+					match: index + 1,
+					goal_diff: gd
+				}))
+			})
+		})
+		return goalDiff
+
+	} catch (e) {
+		console.error(e)
+		return String(e)
+	}
+}
+
 export default async function Home() {
 
-	const data = await fetchData()
+	const data = await getGoals()
+
+	const goalDiff = await getGoalDiffernce()
 
 	return (
 		<main className='bg-white py-[200px] flex flex-col gap-16'>
@@ -57,6 +92,7 @@ export default async function Home() {
 						'Vestibulum aliquam aliquet arcu. Donec accumsan erat eu arcu semper aliquet. Vivamus a tellus quis nisi convallis fermentum. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Mauris condimentum convallis leo quis gravida. Vivamus eu nunc ex. Quisque nec neque eros. Cras dapibus ultrices nulla et elementum.'
 					]
 				}
+				graph={typeof goalDiff !== "string" ? <LineGraph data={goalDiff as GoalDifferenceData[]} /> : ''}
 			/>
 			<TextBlock
 				heading='Heading 3'
