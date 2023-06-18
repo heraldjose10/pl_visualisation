@@ -24,7 +24,7 @@ export default function TextBlock({ heading, texts, graph }: TextBlockProps) {
             </h1>
             {
                 texts.map((text, index) => (
-                    <p key={index} className="text-black mb-4">
+                    <p key={index} className="text-black mb-4 text-lg">
                         {text}
                     </p>
                 ))
