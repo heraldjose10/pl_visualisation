@@ -8,6 +8,19 @@ interface StackedBarChartProps {
 	data: Team[]
 }
 
+function HomeData(team:Team){
+	console.log(team)
+	return(
+		team['goals_scored']['home']
+	)
+}
+
+function AwayData(team:Team){
+	return(
+		team['goals_scored']['away']
+	)
+}
+
 export default function StackedBarChart({data}:StackedBarChartProps) {
 
 	return (
@@ -16,8 +29,8 @@ export default function StackedBarChart({data}:StackedBarChartProps) {
 			<YAxis />
 			<Tooltip/>
 			<Legend/>
-			<Bar name="away goals" dataKey="away_goals" stackId="a" fill="#315c3c" />
-			<Bar name="home goals" dataKey="home_goals" stackId="a" fill="#48d46d" />
+			<Bar name="away goals" dataKey={AwayData} stackId="a" fill="#315c3c" />
+			<Bar name="home goals" dataKey={HomeData} stackId="a" fill="#48d46d" />
 		</BarChart>
 	)
 }

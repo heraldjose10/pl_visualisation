@@ -18,13 +18,13 @@ async function getGoals() {
 		const teamDocs: Document[] = await db
 			.collection("teams")
 			.find({ "name": { "$in": Object.keys(teamColors) } })
-			.project({ "name": 1, "home_goals": 1, "away_goals": 1, "_id": 0 })
+			.project({ "name": 1, "goals_scored": 1, "goals_conceded": 1, "_id": 0 })
 			.toArray()
 
 		const teams: Team[] = teamDocs.map((document: Document) => ({
 			name: document.name,
-			home_goals: document.home_goals,
-			away_goals: document.away_goals
+			goals_scored: document.goals_scored,
+			goals_conceded: document.goals_conceded
 		}))
 
 		return (teams)
