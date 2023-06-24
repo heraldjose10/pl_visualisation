@@ -20,11 +20,6 @@ for team in pl_teams:
         'name': team
     }
 
-    # get goals data
-    goals_data = goals.loc[goals['team'] == team]
-    data['home_goals'] = int(goals_data['home_goals'].values[0])
-    data['away_goals'] = int(goals_data['away_goals'].values[0])
-
     # get cards data
     cards_data = cards.loc[cards['team'] == team]
     data['red_cards'] = int(cards_data['red_cards'].values[0])
