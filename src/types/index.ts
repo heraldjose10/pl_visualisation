@@ -7,14 +7,21 @@ export interface Team {
 	goals_scored: {
 		home: number,
 		away: number
-	}
+	},
+	standings: number[]
 }
 
-interface GoalDifference {
-	match: number,
-	goal_diff: number
-}
-export interface GoalDifferenceData {
+export interface Goals {
 	name: string,
-	data: GoalDifference[]
+	home: number,
+	away: number
+}
+
+interface Data {
+	match: number,
+	value: number
+}
+export interface LineGraphData {
+	name: string,
+	data: Data[]
 }

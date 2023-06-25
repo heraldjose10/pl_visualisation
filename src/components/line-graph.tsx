@@ -1,26 +1,40 @@
 'use client'
 
 
-import { GoalDifferenceData } from '@/types'
+import { LineGraphData } from '@/types'
 import { teamColors } from '@/utils/team_colors'
-import { LineChart, Line, XAxis, YAxis, Tooltip, Legend } from 'recharts'
+import { LineChart, Line, XAxis, YAxis, Tooltip, Legend, Label } from 'recharts'
 
 interface LineGraphProps {
-    data: GoalDifferenceData[]
+    data: LineGraphData[],
+    plotTitle: string
 }
 
-export default function LineGraph({ data }: LineGraphProps) {
+export default function LineGraph({ data, plotTitle }: LineGraphProps) {
+
+    const width: number = 900
 
     return (
-        <LineChart width={700} height={400} data={data} className='my-5 self-center'>
-            <XAxis dataKey="match" type="number" />
-            <YAxis dataKey="goal_diff" />
+        <LineChart width={width} height={400} data={data} className='my-5 self-center'>
+            <text x={width / 2} y={20} fill="black" textAnchor="middle" dominantBaseline="central">
+                <tspan fontSize="24">{plotTitle}</tspan>
+            </text>
+
+            <XAxis dataKey="match" type="number"  >
+                <Label value="Number of Matches Played" offset={0} position="insideBottom" />
+            </XAxis>
+
+            <YAxis dataKey="value">
+                <Label value="Goal Difference" position="center" angle={270} />
+            </YAxis>
+
             <Tooltip />
+
             <Legend layout='vertical' verticalAlign='middle' align='right' />
             {
                 data.map((d) => (
                     <Line
-                        dataKey="goal_diff"
+                        dataKey="value"
                         data={d.data}
                         name={d.name}
                         key={d.name}
