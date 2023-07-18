@@ -11,6 +11,12 @@ export interface Team {
 	standings: number[]
 }
 
+export interface TeamLogos {
+	name: string,
+	logo: string,
+	hex: string
+}
+
 export interface Goals {
 	name: string,
 	home: number,
