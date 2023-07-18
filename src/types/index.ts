@@ -31,3 +31,11 @@ export interface LineGraphData {
 	name: string,
 	data: Data[]
 }
+
+export interface TeamComplete extends Team {
+	red_cards: number,
+	yellow_cards: number,
+	logo_link: string,
+	hex_code: string,
+	goal_diff: number[]
+}

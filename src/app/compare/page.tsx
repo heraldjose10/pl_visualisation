@@ -1,16 +1,70 @@
 'use client'
 
 import Image from 'next/image';
-import ChooseTeam from '@/components/choose-team';
-import { useState } from 'react';
-import { TeamLogos } from '@/types';
+import { useEffect, useState } from 'react';
+import axios, { AxiosResponse } from 'axios';
 
+import ChooseTeam from '@/components/choose-team';
+import StackedBarChart from '@/components/stacked-bar-chart';
+import LineGraph from '@/components/line-graph';
+
+import { Goals, TeamComplete, TeamLogos } from '@/types';
+
+
+async function getTeam(name: string, setTeamData: (teamData: TeamComplete) => void) {
+    // request details of the team and set the state with the response data
+    try {
+        const teamName: string = name.split(' ').join('_')
+        const response: AxiosResponse = await axios.get('/api/teams/' + teamName)
+        setTeamData(response.data);
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+function prepDataForGoals(
+    teamOneData: TeamComplete,
+    teamTwoData: TeamComplete,
+    type: "goals_scored" | "goals_conceded"
+): Goals[] {
+    const data: Goals[] = []
+    data.push({
+        name: teamOneData.name,
+        home: teamOneData[type].home,
+        away: teamOneData[type].away
+    })
+    data.push({
+        name: teamTwoData.name,
+        home: teamTwoData[type].home,
+        away: teamTwoData[type].away
+    })
+    return data
+}
 
 export default function Plot() {
 
     const [teamSelect, setTeamSelect] = useState<number>(0)
+
     const [teamOne, setTeamOne] = useState<TeamLogos | null>(null)
     const [teamTwo, setTeamTwo] = useState<TeamLogos | null>(null)
+
+    const [teamOneData, setTeamOneData] = useState<TeamComplete | null>(null)
+    const [teamTwoData, setTeamTwoData] = useState<TeamComplete | null>(null)
+
+    // get details of team one
+    useEffect(() => {
+        if (teamOne) {
+            getTeam(teamOne.name, setTeamOneData)
+        }
+    }, [teamOne])
+
+    // get details of team two
+    useEffect(() => {
+        if (teamTwo) {
+            getTeam(teamTwo.name, setTeamTwoData)
+        }
+    }, [teamTwo])
 
     return (
         <main className='bg-white py-[200px]'>
@@ -54,12 +108,46 @@ export default function Plot() {
                 }
 
             </div>
-            {/* show the comparison if two teams are selected */}
+
             {
-                    (teamOne && teamTwo)
-                        ? <p >Both teams selected</p>
-                        : ''
-                }
+                // show the comparison if two teams are selected
+                (teamOneData && teamTwoData && teamSelect === 0)
+                    ? <>
+                        <div className='flex gap-8 justify-center max-w-[1120px] mx-auto mt-[150px]'>
+                            <StackedBarChart
+                                data={prepDataForGoals(teamOneData, teamTwoData, "goals_scored")}
+                                plotTitle='Goals Scored'
+                                yRange={[0, 100]}
+                                width={400}
+                            />
+                            <StackedBarChart
+                                data={prepDataForGoals(teamOneData, teamTwoData, "goals_conceded")}
+                                plotTitle='Goals Conceded'
+                                yRange={[0, 100]}
+                                width={400}
+                            />
+                        </div>
+                        <div className='max-w-[1120px] mx-auto mt-[150px] flex justify-center'>
+                            <LineGraph
+                                data={[
+                                    { name: teamOneData.name, data: teamOneData.goal_diff.map((gd, index) => ({ match: index + 1, value: gd })) },
+                                    { name: teamTwoData.name, data: teamTwoData.goal_diff.map((gd, index) => ({ match: index + 1, value: gd })) }
+                                ]}
+                                plotTitle='Goal Difference'
+                            />
+                        </div>
+                        <div className='max-w-[1120px] mx-auto mt-[150px] flex justify-center'>
+                            <LineGraph
+                                data={[
+                                    { name: teamOneData.name, data: teamOneData.standings.map((gd, index) => ({ match: index + 1, value: gd })) },
+                                    { name: teamTwoData.name, data: teamTwoData.standings.map((gd, index) => ({ match: index + 1, value: gd })) }
+                                ]}
+                                plotTitle='Team Standings'
+                            />
+                        </div>
+                    </>
+                    : ''
+            }
         </main>
     )
 }

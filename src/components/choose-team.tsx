@@ -45,6 +45,7 @@ export default function ChooseTeam({ setIsOpen, setTeam }: ChooseTeamProps) {
                         {
                             teams.map(team => (
                                 <li
+                                key={team.name}
                                     onClick={() => {
                                         setTeam(team)
                                         setIsOpen(0)

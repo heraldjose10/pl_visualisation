@@ -1,10 +1,12 @@
 'use client'
 
 import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend } from "recharts"
-import { Goals, Team } from "@/types"
+
+import { Goals } from "@/types"
 
 
 interface StackedBarChartProps {
+	width?: number
 	data: Goals[],
 	plotTitle: string,
 	yRange: number[]
@@ -22,8 +24,8 @@ function AwayData(team: Goals) {
 	)
 }
 
-export default function StackedBarChart({ data, plotTitle, yRange }: StackedBarChartProps) {
-	const width: number = 700
+export default function StackedBarChart({ data, plotTitle, yRange, width }: StackedBarChartProps) {
+	width ? '' : width = 700
 	return (
 		<BarChart
 			width={width}
