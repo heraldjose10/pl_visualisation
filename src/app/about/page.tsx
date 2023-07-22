@@ -11,7 +11,7 @@ export default function AboutPage() {
                     href="https://www.kaggle.com/datasets/evangower/premier-league-2022-2023?select=epl_results_2022-23.csv">
                     Premier League 2022-2023</a> dataset from Kaggle. The dataset contains match results of the 2022-2023 
                     season of the English Premier League for every team. Match data includes names of teams, referees, and stats by 
-                    home and away side such as fouls, shots, cards, etc. It also includes a dataset of the club's info such as team 
+                    home and away side such as fouls, shots, cards, etc. It also includes a dataset of the club&apos;s info such as team 
                     colours, abbreviation, and team logo image.
                 </p>
                 <p className="text-black mb-4 text-lg">

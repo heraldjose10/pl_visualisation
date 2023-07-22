@@ -127,7 +127,7 @@ export default async function Home() {
 
 			<TextBlock heading='Goals & Goal Differences'>
 				<p className='text-black mb-4 text-lg'>
-					Let's begin by examining the goal-scoring performance, defensive strength, and overall goal
+					Let&apos;s begin by examining the goal-scoring performance, defensive strength, and overall goal
 					differences for each team in the Premier League during the 2023 season. The table toppers
 					Manchester City has showcased their attacking prowess by scoring an impressive 94 goals. Arsenal
 					is not far behind with 88 goals to their name, highlighting their strong offensive capabilities as
@@ -138,8 +138,8 @@ export default async function Home() {
 					Both Manchester City and Newcastle United FC have displayed outstanding defensive performances in
 					the Premier League, conceding an impressive average of only 0.87 goals per match. Throughout the
 					38-game season, they managed to concede only 33 goals. It can be noted that, even though Liverpool
-					could score more goals than Manchester United, they couldn't get into top four as their defence conceded
-					a lot of goals throughout the season. Let's hope Scoucers can secure their Champions League spot next
+					could score more goals than Manchester United, they couldn&apos;t get into top four as their defence conceded
+					a lot of goals throughout the season. Let&apos;s hope Scoucers can secure their Champions League spot next
 					season.
 				</p>
 				{goalsConcededData ? <StackedBarChart data={goalsConcededData as Goals[]} plotTitle='Goals Conceded' yRange={[0, 80]} /> : ''}
@@ -153,7 +153,7 @@ export default async function Home() {
 
 			<TextBlock heading='Team Movements'>
 				<p className='text-black mb-4 text-lg'>
-					In this section, let's skim through the movement of the Premier League Big Six after each match.
+					In this section, let&apos;s skim through the movement of the Premier League Big Six after each match.
 					Arsenal had a superb start to their season. They could hold on to the first throughout most of the
 					season. But, they had to surrender that spot to Manchester City at the end of the season. We can
 					also see a very inconsistent performance from Liverpool. Manchester United had a lousy start to
