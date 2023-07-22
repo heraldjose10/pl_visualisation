@@ -27,22 +27,24 @@ function AwayData(team: Goals) {
 export default function StackedBarChart({ data, plotTitle, yRange, width }: StackedBarChartProps) {
 	width ? '' : width = 700
 	return (
-		<BarChart
-			width={width}
-			height={400}
-			data={data}
-			barCategoryGap={30}
-			className="my-5 self-center"
-		>
-			<text x={width / 2} y={20} fill="black" textAnchor="middle" dominantBaseline="central">
-				<tspan fontSize="24">{plotTitle}</tspan>
-			</text>
-			<XAxis dataKey="name" />
-			<YAxis domain={yRange} />
-			<Tooltip />
-			<Legend />
-			<Bar name="away goals" dataKey={AwayData} stackId="a" fill="#315c3c" />
-			<Bar name="home goals" dataKey={HomeData} stackId="a" fill="#48d46d" />
-		</BarChart>
+		<div className="flex flex-col items-center">
+			<h2 className='text-black text-[24px]'>
+                {plotTitle}
+            </h2>
+			<BarChart
+				width={width}
+				height={400}
+				data={data}
+				barCategoryGap={30}
+				className="my-5 self-center"
+			>
+				<XAxis dataKey="name" />
+				<YAxis domain={yRange} />
+				<Tooltip />
+				<Legend />
+				<Bar name="away goals" dataKey={AwayData} stackId="a" fill="#315c3c" />
+				<Bar name="home goals" dataKey={HomeData} stackId="a" fill="#48d46d" />
+			</BarChart>
+		</div>
 	)
 }

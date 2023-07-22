@@ -114,36 +114,44 @@ export default function Plot() {
                 (teamOneData && teamTwoData && teamSelect === 0)
                     ? <>
                         <div className='flex gap-8 justify-center max-w-[1120px] mx-auto mt-[150px]'>
-                            <StackedBarChart
-                                data={prepDataForGoals(teamOneData, teamTwoData, "goals_scored")}
-                                plotTitle='Goals Scored'
-                                yRange={[0, 100]}
-                                width={400}
-                            />
-                            <StackedBarChart
-                                data={prepDataForGoals(teamOneData, teamTwoData, "goals_conceded")}
-                                plotTitle='Goals Conceded'
-                                yRange={[0, 100]}
-                                width={400}
-                            />
+                            <div className='p-5 shadow-[2px_5px_12px_6px_rgba(0,0,0,0.3)] rounded-xl'>
+                                <StackedBarChart
+                                    data={prepDataForGoals(teamOneData, teamTwoData, "goals_scored")}
+                                    plotTitle='Goals Scored'
+                                    yRange={[0, 100]}
+                                    width={400}
+                                />
+                            </div>
+                            <div className='p-5 shadow-[2px_5px_12px_6px_rgba(0,0,0,0.3)] rounded-xl'>
+                                <StackedBarChart
+                                    data={prepDataForGoals(teamOneData, teamTwoData, "goals_conceded")}
+                                    plotTitle='Goals Conceded'
+                                    yRange={[0, 100]}
+                                    width={400}
+                                />
+                            </div>
                         </div>
                         <div className='max-w-[1120px] mx-auto mt-[150px] flex justify-center'>
-                            <LineGraph
-                                data={[
-                                    { name: teamOneData.name, data: teamOneData.goal_diff.map((gd, index) => ({ match: index + 1, value: gd })) },
-                                    { name: teamTwoData.name, data: teamTwoData.goal_diff.map((gd, index) => ({ match: index + 1, value: gd })) }
-                                ]}
-                                plotTitle='Goal Difference'
-                            />
+                            <div className='p-5 shadow-[2px_5px_12px_6px_rgba(0,0,0,0.3)] rounded-xl'>
+                                <LineGraph
+                                    data={[
+                                        { name: teamOneData.name, data: teamOneData.goal_diff.map((gd, index) => ({ match: index + 1, value: gd })) },
+                                        { name: teamTwoData.name, data: teamTwoData.goal_diff.map((gd, index) => ({ match: index + 1, value: gd })) }
+                                    ]}
+                                    plotTitle='Goal Difference'
+                                />
+                            </div>
                         </div>
                         <div className='max-w-[1120px] mx-auto mt-[150px] flex justify-center'>
-                            <LineGraph
-                                data={[
-                                    { name: teamOneData.name, data: teamOneData.standings.map((gd, index) => ({ match: index + 1, value: gd })) },
-                                    { name: teamTwoData.name, data: teamTwoData.standings.map((gd, index) => ({ match: index + 1, value: gd })) }
-                                ]}
-                                plotTitle='Team Standings'
-                            />
+                            <div className='p-5 shadow-[2px_5px_12px_6px_rgba(0,0,0,0.3)] rounded-xl'>
+                                <LineGraph
+                                    data={[
+                                        { name: teamOneData.name, data: teamOneData.standings.map((gd, index) => ({ match: index + 1, value: gd })) },
+                                        { name: teamTwoData.name, data: teamTwoData.standings.map((gd, index) => ({ match: index + 1, value: gd })) }
+                                    ]}
+                                    plotTitle='Team Standings'
+                                />
+                            </div>
                         </div>
                     </>
                     : ''

@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { motion } from 'framer-motion'
 import axios, { AxiosResponse } from 'axios';
 import { TeamLogos } from "@/types";
+import CircleLoader from "./circle-loader";
 
 
 type ChooseTeamProps = {
@@ -65,7 +66,7 @@ export default function ChooseTeam({ setIsOpen, setTeam }: ChooseTeamProps) {
                         }
                     </motion.ul>
                     // show a spinner if teams are loading
-                    : <p>loading...</p>
+                    : <CircleLoader/>
             }
         </motion.div>
     )
