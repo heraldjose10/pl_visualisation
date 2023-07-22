@@ -4,23 +4,53 @@
 import Link from "next/link";
 import { usePathname } from 'next/navigation';
 import { lexend_deca } from "@/utils/fonts";
+import { LayoutGroup, motion } from "framer-motion";
 
 
 export default function Nav() {
 
-    const pathname:string = usePathname()
+    const pathname: string = usePathname()
 
     return (
-        <ul className={`flex gap-12 ${lexend_deca.variable} font-lexend font-bold my-20 [&>li]:py-1`}>
-            <li className={pathname == '/' ? 'border-b-2 border-white' : ''}>
-                <Link href='/'>Home</Link>
-            </li>
-            <li className={pathname == '/compare' ? 'border-b-2 border-white' : ''}>
-                <Link href='/compare'>Team Compare</Link>
-            </li>
-            <li className={pathname == '/about' ? 'border-b-2 border-white' : ''}>
-                <Link href='/about'>About</Link>
-            </li>
-        </ul>
+        <LayoutGroup>
+            <motion.ul
+                className={`flex gap-12 ${lexend_deca.variable} font-lexend font-bold my-20 [&>li]:py-1`}
+                layout={true}
+            >
+                <motion.li className="relative">
+                    {
+                        pathname == '/'
+                            ? <motion.div
+                                className="absolute bottom-[-4px] w-full h-1 rounded-xl bg-white"
+                                layoutId="underline"
+                            />
+                            : ''
+                    }
+                    <Link href='/'>Home</Link>
+                </motion.li>
+                <motion.li className="relative">
+                    {
+                        pathname == '/compare'
+                            ? <motion.div
+                                className="absolute bottom-[-4px] w-full h-1 rounded-xl bg-white"
+                                layoutId="underline"
+                            />
+                            : ''
+                    }
+                    <Link href='/compare'>Team Compare</Link>
+                </motion.li>
+                <motion.li className="relative">
+                    {
+                        pathname == '/about'
+                            ? <motion.div
+                                className="absolute bottom-[-4px] w-full h-1 rounded-xl bg-white"
+                                layoutId="underline"
+                            />
+                            : ''
+                    }
+                    <Link href='/about'>About</Link>
+                </motion.li>
+            </motion.ul>
+        </LayoutGroup>
     )
 }
