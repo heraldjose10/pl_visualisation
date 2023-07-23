@@ -75,7 +75,7 @@ export default function Plot() {
                         ? <>
                             <Image
                                 className='w-[150px] h-[150px] md:w-[300px] md:h-[300px] shadow-[2px_5px_12px_6px_rgba(0,0,0,0.3)] cursor-pointer rounded-xl hover:scale-110 transition-all ease-in-out object-cover'
-                                src={teamOne ? teamOne.logo : '/PL-lion.png'}
+                                src={teamOne ? teamOne.logo : '/PL-Lion.png'}
                                 alt={teamOne ? `${teamOne.name} logo` : 'premier league logo'}
                                 width={0}
                                 height={0}
@@ -86,7 +86,7 @@ export default function Plot() {
                             />
                             <Image
                                 className='w-[150px] h-[150px] md:w-[300px] md:h-[300px] shadow-[2px_5px_12px_6px_rgba(0,0,0,0.3)] cursor-pointer rounded-xl hover:scale-110 transition-all ease-in-out object-cover'
-                                src={teamTwo ? teamTwo.logo : '/PL-lion.png'}
+                                src={teamTwo ? teamTwo.logo : '/PL-Lion.png'}
                                 alt={teamTwo ? `${teamTwo.name} logo` : 'premier league logo'}
                                 width={0}
                                 height={0}

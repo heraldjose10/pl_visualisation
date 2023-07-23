@@ -16,7 +16,7 @@ export default function Hero({ children }: { children: React.ReactNode }) {
             className="md:h-[800px] h-[500px] bg-gradient-to-b from-black from-0% via-[rgba(0, 0, 0, 0.474)] via-5% to-[rgba(0, 0, 0, 0.048)] to-70%"
         >
             {/* apply background image to hero section */}
-            <div className="absolute -z-10 w-screen h-[500px] md:h-[800px] opacity-80">
+            <div className="absolute -z-10 w-full h-[500px] md:h-[800px] opacity-80">
                 <Image
                     className="max-h-full object-fill"
                     priority={true}
