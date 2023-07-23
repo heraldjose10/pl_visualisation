@@ -14,7 +14,7 @@ export default function Nav() {
     return (
         <LayoutGroup>
             <motion.ul
-                className={`flex gap-12 ${lexend_deca.variable} font-lexend font-bold my-20 [&>li]:py-1`}
+                className={`flex justify-between sm:justify-normal gap-8 sm:gap-12 ${lexend_deca.variable} font-lexend font-bold my-20 [&>li]:py-1 text-sm sm:text-base`}
                 layout={true}
             >
                 <motion.li className="relative">

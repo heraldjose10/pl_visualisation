@@ -14,7 +14,7 @@ export default function Footer() {
                 <TwitterLogo height={35} width={35} fill='white' background='black' />
                 <LinkedInLogo height={35} width={35} fill='white' background='black' />
             </ul>
-            <p className={`py-2 text-base font-lexend ${lexend_deca.variable}`}>
+            <p className={`md:py-2 text-sm md:text-base font-lexend ${lexend_deca.variable}`}>
                 Made with ❤️ by <Link href='https://github.com/heraldjose10/' className="underline">@heraldjos10</Link>
             </p>
         </div>

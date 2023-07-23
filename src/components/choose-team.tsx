@@ -41,7 +41,7 @@ export default function ChooseTeam({ setIsOpen, setTeam }: ChooseTeamProps) {
                             ease: "easeInOut",
                             duration: .6,
                         }}
-                        className="flex gap-10 flex-wrap justify-between max-w-2xl"
+                        className="flex gap-5 md:gap-10 flex-wrap justify-between max-w-2xl"
                     >
                         {
                             teams.map(team => (
@@ -53,13 +53,12 @@ export default function ChooseTeam({ setIsOpen, setTeam }: ChooseTeamProps) {
                                     }}
                                 >
                                     <Image
-                                        className="shadow-[2px_5px_12px_6px_rgba(0,0,0,0.3)] cursor-pointer rounded-xl hover:scale-110 transition-all ease-in-out"
+                                        className="w-[75px] h-[75px] md:w-[100px] md:h-[100px] shadow-[2px_5px_12px_6px_rgba(0,0,0,0.3)] cursor-pointer rounded-xl hover:scale-110 transition-all ease-in-out object-cover"
                                         alt={team.name + ' logo'}
                                         src={team.logo}
                                         width={0}
                                         height={0}
                                         sizes="100vw"
-                                        style={{ width: '100px', height: '100px', objectFit: 'cover' }}
                                     />
                                 </li>
                             ))

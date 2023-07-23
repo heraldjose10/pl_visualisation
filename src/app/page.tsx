@@ -111,10 +111,10 @@ export default async function Home() {
 	const goalDiff = await getGoalDiffernce()
 
 	return (
-		<main className='bg-white py-[200px] flex flex-col gap-16'>
+		<main className='bg-white py-[100px] md:py-[200px] flex flex-col gap-10 md:gap-16'>
 
 			<TextBlock heading='Introduction'>
-				<p className='text-black mb-4 text-lg'>
+				<p className='text-black mb-4 text-base md:text-lg'>
 					The English Premier League concluded at the end of May, with Manchester City winning the race
 					for the fourth time in the last five years. Although Arsenal made it seem like a tough fight,
 					with their unmatched squad dept, the Blues could easily win the league by the end of the season.
@@ -126,7 +126,7 @@ export default async function Home() {
 			</TextBlock>
 
 			<TextBlock heading='Goals & Goal Differences'>
-				<p className='text-black mb-4 text-lg'>
+				<p className='text-black mb-4 text-base md:text-lg'>
 					Let&apos;s begin by examining the goal-scoring performance, defensive strength, and overall goal
 					differences for each team in the Premier League during the 2023 season. The table toppers
 					Manchester City has showcased their attacking prowess by scoring an impressive 94 goals. Arsenal
@@ -134,7 +134,7 @@ export default async function Home() {
 					well.
 				</p>
 				{goalsScoredData ? <StackedBarChart data={goalsScoredData as Goals[]} plotTitle='Goals Scored' yRange={[0, 120]} /> : ''}
-				<p className='text-black mb-4 text-lg'>
+				<p className='text-black mb-4 text-base md:text-lg'>
 					Both Manchester City and Newcastle United FC have displayed outstanding defensive performances in
 					the Premier League, conceding an impressive average of only 0.87 goals per match. Throughout the
 					38-game season, they managed to concede only 33 goals. It can be noted that, even though Liverpool
@@ -143,7 +143,7 @@ export default async function Home() {
 					season.
 				</p>
 				{goalsConcededData ? <StackedBarChart data={goalsConcededData as Goals[]} plotTitle='Goals Conceded' yRange={[0, 80]} /> : ''}
-				<p className='text-black mb-4 text-lg'>
+				<p className='text-black mb-4 text-base md:text-lg'>
 					Of the big six teams in Premier League, Chelsea had an aweful season. They finished the campaign
 					with  a goal difference of negetive nine. As expected, Manchester City and Arsenal concluded their
 					campaign with a goal difference of 61 and 45 respectively.
@@ -152,7 +152,7 @@ export default async function Home() {
 			</TextBlock>
 
 			<TextBlock heading='Team Movements'>
-				<p className='text-black mb-4 text-lg'>
+				<p className='text-black mb-4 text-base md:text-lg'>
 					In this section, let&apos;s skim through the movement of the Premier League Big Six after each match.
 					Arsenal had a superb start to their season. They could hold on to the first throughout most of the
 					season. But, they had to surrender that spot to Manchester City at the end of the season. We can
@@ -163,12 +163,12 @@ export default async function Home() {
 			</TextBlock>
 
 			<TextBlock heading='Conclusion'>
-				<p className='text-black mb-4 text-lg'>
+				<p className='text-black mb-4 text-base md:text-lg'>
 					In conclusion, the 2023 Premier League season was a thrilling and competitive campaign that saw
 					Manchester City emerge as the champions. Congratulations to Manchester City on their well-deserved
 					title, and we eagerly await the next season to see how the teams evolve and compete for glory once again.
 				</p>
-				<p className='text-black mb-4 text-lg'>
+				<p className='text-black mb-4 text-base md:text-lg'>
 					We could use pandas and matplotlib to visualize and analyze the match results of the Premier League
 					2023 season. I will try to create a website for making details comparisons of teams using NextJS
 					and Recharts. Thanks for reading to the end and all sorts of feedback are appreciated!
