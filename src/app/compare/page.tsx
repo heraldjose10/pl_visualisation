@@ -111,8 +111,8 @@ export default function Plot() {
                 // show the comparison if two teams are selected
                 (teamOneData && teamTwoData && teamSelect === 0)
                     ? <>
-                        <div className='flex gap-8 justify-center max-w-[1120px] mx-auto mt-[150px]'>
-                            <div className='p-5 shadow-[2px_5px_12px_6px_rgba(0,0,0,0.3)] rounded-xl'>
+                        <div className='flex flex-col md:flex-row max-w-[80vw] md:max-w-[1120px] gap-8 justify-center md:px-10 mx-auto mt-[150px]'>
+                            <div className='p-5 shadow-[2px_5px_12px_6px_rgba(0,0,0,0.3)] rounded-xl flex-grow'>
                                 <StackedBarChart
                                     data={prepDataForGoals(teamOneData, teamTwoData, "goals_scored")}
                                     plotTitle='Goals Scored'
@@ -120,7 +120,7 @@ export default function Plot() {
                                     width={400}
                                 />
                             </div>
-                            <div className='p-5 shadow-[2px_5px_12px_6px_rgba(0,0,0,0.3)] rounded-xl'>
+                            <div className='p-5 shadow-[2px_5px_12px_6px_rgba(0,0,0,0.3)] rounded-xl flex-grow'>
                                 <StackedBarChart
                                     data={prepDataForGoals(teamOneData, teamTwoData, "goals_conceded")}
                                     plotTitle='Goals Conceded'
@@ -129,25 +129,27 @@ export default function Plot() {
                                 />
                             </div>
                         </div>
-                        <div className='max-w-[1120px] mx-auto mt-[150px] flex justify-center'>
-                            <div className='p-5 shadow-[2px_5px_12px_6px_rgba(0,0,0,0.3)] rounded-xl'>
+                        <div className='max-w-[1120px] mx-auto mt-[150px] flex justify-center md:px-10'>
+                            <div className='p-5 shadow-[2px_5px_12px_6px_rgba(0,0,0,0.3)] rounded-xl flex-grow max-w-[80vw]'>
                                 <LineGraph
                                     data={[
                                         { name: teamOneData.name, data: teamOneData.goal_diff.map((gd, index) => ({ match: index + 1, value: gd })) },
                                         { name: teamTwoData.name, data: teamTwoData.goal_diff.map((gd, index) => ({ match: index + 1, value: gd })) }
                                     ]}
                                     plotTitle='Goal Difference'
+                                    yLabel='Goal difference'
                                 />
                             </div>
                         </div>
-                        <div className='max-w-[1120px] mx-auto mt-[150px] flex justify-center'>
-                            <div className='p-5 shadow-[2px_5px_12px_6px_rgba(0,0,0,0.3)] rounded-xl'>
+                        <div className='md:max-w-[1120px] mx-auto mt-[150px] flex justify-center md:px-10'>
+                            <div className='p-5 shadow-[2px_5px_12px_6px_rgba(0,0,0,0.3)] rounded-xl flex-grow max-w-[80vw]'>
                                 <LineGraph
                                     data={[
                                         { name: teamOneData.name, data: teamOneData.standings.map((gd, index) => ({ match: index + 1, value: gd })) },
                                         { name: teamTwoData.name, data: teamTwoData.standings.map((gd, index) => ({ match: index + 1, value: gd })) }
                                     ]}
                                     plotTitle='Team Standings'
+                                    yLabel='Team standing'
                                 />
                             </div>
                         </div>

@@ -148,7 +148,7 @@ export default async function Home() {
 					with  a goal difference of negetive nine. As expected, Manchester City and Arsenal concluded their
 					campaign with a goal difference of 61 and 45 respectively.
 				</p>
-				{typeof goalDiff !== "string" ? <LineGraph data={goalDiff as LineGraphData[]} plotTitle='Goal Difference of PL big Six' /> : ''}
+				{typeof goalDiff !== "string" ? <LineGraph data={goalDiff as LineGraphData[]} plotTitle='Goal Difference of PL big Six' yLabel='Goal difference' /> : ''}
 			</TextBlock>
 
 			<TextBlock heading='Team Movements'>
@@ -159,7 +159,7 @@ export default async function Home() {
 					also see a very inconsistent performance from Liverpool. Manchester United had a lousy start to
 					their campaign, but they could get back to form and finish in the top four by the end of the season.
 				</p>
-				{standings ? <LineGraph data={standings as LineGraphData[]} plotTitle='Team Movements of PL big Six' /> : ''}
+				{standings ? <LineGraph data={standings as LineGraphData[]} plotTitle='Team Movements of PL big Six' yLabel='Team standing' /> : ''}
 			</TextBlock>
 
 			<TextBlock heading='Conclusion'>
