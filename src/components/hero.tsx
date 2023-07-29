@@ -13,10 +13,10 @@ export default function Hero({ children }: { children: React.ReactNode }) {
 
     return (
         <div
-            className="md:h-[800px] h-[500px] bg-gradient-to-b from-black from-0% via-[rgba(0, 0, 0, 0.474)] via-5% to-[rgba(0, 0, 0, 0.048)] to-70%"
+            className="md:h-[800px] h-[520px] bg-gradient-to-b from-black from-0% via-[rgba(0, 0, 0, 0.474)] via-5% to-[rgba(0, 0, 0, 0.048)] to-70%"
         >
             {/* apply background image to hero section */}
-            <div className="absolute -z-10 w-full h-[500px] md:h-[800px] opacity-80">
+            <div className="absolute -z-10 w-full h-[520px] md:h-[800px] opacity-80">
                 <Image
                     className="max-h-full object-fill"
                     priority={true}
@@ -32,7 +32,7 @@ export default function Hero({ children }: { children: React.ReactNode }) {
             <div className="flex flex-col mx-8 md:mx-16 max-w-[1120px] lg:m-auto">
                 {/* nav bar */}
                 {children}
-                <h1 className={`uppercase text-[52px] md:text-[80px] sm:text-[100px] ${passion_one.variable} font-passion w-full sm:w-[660px] md:mt-[100px] md:leading-[110px]`}>
+                <h1 className={`uppercase text-white text-[52px] md:text-[80px] sm:text-[100px] ${passion_one.variable} font-passion w-full sm:w-[660px] md:mt-[100px] leading-[60px] md:leading-[110px]`}>
                     {headings[pathname as keyof typeof headings]}
                 </h1>
             </div>
