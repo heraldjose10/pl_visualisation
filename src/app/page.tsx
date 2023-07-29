@@ -1,78 +1,50 @@
-import type { Document } from 'mongodb';
-import { connectToDatabase } from '../lib/mongodb'
+'use client'
 
 import { Goals, LineGraphData, Team } from '@/types';
-import { teamColors } from '@/utils/team_colors';
 
 import TextBlock from '@/components/text-block';
 import StackedBarChart from '@/components/stacked-bar-chart';
 import LineGraph from '@/components/line-graph';
+import { useEffect, useState } from 'react';
+import axios, { AxiosResponse } from 'axios';
+import CircleLoader from '@/components/circle-loader';
 
 
-async function getTeams() {
+async function getTeams(setData: (teamData: Team[]) => void) {
 	try {
-		const client = await connectToDatabase();
-		const db = client.db("premier_league_2023");
-
-		// get goals data
-		const teamDocs: Document[] = await db
-			.collection("teams")
-			.find({ "name": { "$in": Object.keys(teamColors) } })
-			.project({ "name": 1, "goals_scored": 1, "goals_conceded": 1, standings: 1, "_id": 0 })
-			.toArray()
-
-		const teams: Team[] = teamDocs.map((document: Document) => ({
-			name: document.name,
-			goals_scored: document.goals_scored,
-			goals_conceded: document.goals_conceded,
-			standings: document.standings
-		}))
-
-		return (teams)
-
-	} catch (e) {
-		console.error(e)
-		return (String(e))
+		const response: AxiosResponse = await axios.get('/api/bigsix')
+		setData(response.data)
+	} catch (error) {
+		console.log(error)
 	}
 }
 
 
-async function getGoalDiffernce() {
+async function getGoalDiffernce(setGoalDiff: (goalDiffData: LineGraphData[]) => void) {
 	try {
-		const client = await connectToDatabase();
-		const db = client.db("premier_league_2023")
-
-		// get goal difference data of pl big six
-		const goalDiffDocs: Document[] = await db
-			.collection("teams")
-			.find({ "name": { "$in": Object.keys(teamColors) } })
-			.project({ "name": 1, "goal_diff": 1, "_id": 0 })
-			.toArray()
-
-		const goalDiff: LineGraphData[] = goalDiffDocs.map((document: Document) => {
-			return ({
-				name: document.name,
-				data: document.goal_diff.map((gd: number, index: number) => ({
-					match: index + 1,
-					value: gd
-				}))
-			})
-		})
-		return goalDiff
-
-	} catch (e) {
-		console.error(e)
-		return String(e)
+		const response: AxiosResponse = await axios.get('/api/bigsix/goaldifference')
+		setGoalDiff(response.data)
+	} catch (error) {
+		console.log(error)
 	}
 }
 
-export default async function Home() {
+export default function Home() {
 
-	const data = await getTeams()
+	const [data, setData] = useState<Team[] | null>(null)
+	const [goalDiff, setGoalDiff] = useState<LineGraphData[] | null>(null)
+
+	useEffect(() => {
+		getTeams(setData)
+	}, [])
+
+	useEffect(() => {
+		getGoalDiffernce(setGoalDiff)
+	}, [])
 
 	// create goals scored data
 	let goalsScoredData: Goals[] | null = null
-	if (typeof data !== "string") {
+	if (data) {
 		goalsScoredData = data.map((team: Team) => {
 			return ({
 				name: team.name,
@@ -84,7 +56,7 @@ export default async function Home() {
 
 	// create goals conceded data
 	let goalsConcededData: Goals[] | null = null
-	if (typeof data !== "string") {
+	if (data) {
 		goalsConcededData = data.map((team: Team) => {
 			return ({
 				name: team.name,
@@ -96,7 +68,7 @@ export default async function Home() {
 
 	// create standings data
 	let standings: LineGraphData[] | null = null
-	if (typeof data !== 'string') {
+	if (data) {
 		standings = data.map((team: Team) => {
 			return ({
 				name: team.name,
@@ -107,8 +79,6 @@ export default async function Home() {
 			})
 		})
 	}
-
-	const goalDiff = await getGoalDiffernce()
 
 	return (
 		<main className='bg-white py-[100px] md:py-[200px] flex flex-col gap-10 md:gap-16'>
@@ -133,7 +103,11 @@ export default async function Home() {
 					is not far behind with 88 goals to their name, highlighting their strong offensive capabilities as
 					well.
 				</p>
-				{goalsScoredData ? <StackedBarChart data={goalsScoredData as Goals[]} plotTitle='Goals Scored' yRange={[0, 120]} /> : ''}
+				{
+					goalsScoredData
+						? <StackedBarChart data={goalsScoredData as Goals[]} plotTitle='Goals Scored' yRange={[0, 120]} />
+						: <CircleLoader />
+				}
 				<p className='text-black mb-4 text-base md:text-lg'>
 					Both Manchester City and Newcastle United FC have displayed outstanding defensive performances in
 					the Premier League, conceding an impressive average of only 0.87 goals per match. Throughout the
@@ -142,13 +116,21 @@ export default async function Home() {
 					a lot of goals throughout the season. Let&apos;s hope Scoucers can secure their Champions League spot next
 					season.
 				</p>
-				{goalsConcededData ? <StackedBarChart data={goalsConcededData as Goals[]} plotTitle='Goals Conceded' yRange={[0, 80]} /> : ''}
+				{
+					goalsConcededData
+						? <StackedBarChart data={goalsConcededData as Goals[]} plotTitle='Goals Conceded' yRange={[0, 80]} />
+						: <CircleLoader />
+				}
 				<p className='text-black mb-4 text-base md:text-lg'>
 					Of the big six teams in Premier League, Chelsea had an aweful season. They finished the campaign
 					with  a goal difference of negetive nine. As expected, Manchester City and Arsenal concluded their
 					campaign with a goal difference of 61 and 45 respectively.
 				</p>
-				{typeof goalDiff !== "string" ? <LineGraph data={goalDiff as LineGraphData[]} plotTitle='Goal Difference of PL big Six' yLabel='Goal difference' /> : ''}
+				{
+					goalDiff
+						? <LineGraph data={goalDiff as LineGraphData[]} plotTitle='Goal Difference of PL big Six' yLabel='Goal difference' />
+						: <CircleLoader />
+				}
 			</TextBlock>
 
 			<TextBlock heading='Team Movements'>
@@ -159,7 +141,11 @@ export default async function Home() {
 					also see a very inconsistent performance from Liverpool. Manchester United had a lousy start to
 					their campaign, but they could get back to form and finish in the top four by the end of the season.
 				</p>
-				{standings ? <LineGraph data={standings as LineGraphData[]} plotTitle='Team Movements of PL big Six' yLabel='Team standing' /> : ''}
+				{
+					standings
+						? <LineGraph data={standings as LineGraphData[]} plotTitle='Team Movements of PL big Six' yLabel='Team standing' />
+						: <CircleLoader />
+				}
 			</TextBlock>
 
 			<TextBlock heading='Conclusion'>
